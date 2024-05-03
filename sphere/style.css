@@ -1,0 +1,257 @@
+@font-face {
+	font-family: 'ChakraPetch';
+	src: url('./fonts/chakrapetch-medium-webfont.woff2') format('woff2');
+	font-weight: normal;
+	font-style: normal;
+}
+
+@font-face {
+	font-family: 'SourceCodePro';
+	src: url('./fonts/SourceCodePro-VariableFont_wght.woff2') format('woff2');
+	font-weight: normal;
+	font-style: normal;
+}
+
+:root {
+	--kth-blue: #2258A5;
+}
+
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+
+canvas {
+	width: 100%;
+	height: 100%;
+}
+
+body {
+	margin: 0;
+	overflow: hidden;
+	scroll-snap-type: y mandatory;
+	overflow-y: scroll;
+	min-height: 100vh;
+}
+
+.page {
+	z-index: 0;
+	scroll-snap-align: start;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	font-size: 2em;
+}
+
+#page_main {
+	position: sticky;
+	background-color: black;
+}
+
+#page_projects {
+	position: sticky;
+	background-color: black;
+	height: 100vh;
+}
+
+.sphere_layer {
+	z-index: 1;
+	position: sticky;
+}
+
+.pixelized_arrow {
+	z-index: 2;
+	display: block;
+	position: absolute;
+	width: 0.25em;
+	height: 0.25em;
+	box-shadow:
+		2em 1em greenyellow,
+		4em 1em greenyellow,
+
+		2.5em 1.5em greenyellow,
+		3.5em 1.5em greenyellow,
+		
+		3em 2em greenyellow;
+}
+
+@-webkit-keyframes arrow_top_bounce {
+	0%		{top: 89%;}
+	50%		{top: 91%;}
+	100%	{top: 89%;}
+}
+
+@-webkit-keyframes arrow_bottom_bounce {
+	0%		{top: 91.5%;}
+	50%		{top: 92.5%;}
+	100%	{top: 91.5%;}
+}
+
+@keyframes arrow_top_rotate{
+	50% {left: 46.5%;}
+	50% {transform: rotate(-90deg);}
+	85% {left: 10%}
+	100% {transform: rotate(-90deg);}
+	100% {left: 10%}
+}
+@keyframes arrow_bottom_rotate {
+	50% {left: 49%;}
+	50% {top: 12.5%;}
+	50% {transform: rotate(-90deg);}
+	85% {left: 11.5%;}
+	100% {transform: rotate(-90deg);}
+	100% {top: 12.5%;}
+	100% {left: 11.5%}
+}
+
+@keyframes arrow_top_rotate_click{
+	0% {left: 10%;}
+	0% {top: 12.5%;}
+	0% {transform: rotate(-90deg);}
+	50% {transform: rotate(0deg);}
+	50% {left: 11%;}
+	50% {top: 9%;}
+	100% {transform: rotate(0deg);}
+	100% {left: 11%;}
+	100% {top: 9%;}
+}
+
+@keyframes arrow_bottom_rotate_click{
+	0% {left: 11.5%;}
+	0% {transform: rotate(-90deg);}
+	50% {transform: rotate(0deg);}
+	50% {left: 11%;}
+	100% {transform: rotate(0deg);}
+	100% {left: 11%;}
+}
+
+#pixel_arrow_top {
+	z-index: 2;
+	position: fixed;
+	top: 89%;
+	left: 49%;
+	width: 6em;
+	height: 2em;
+	transform: translate(-50%, -50%);
+	/* Webkit for iOS devices animation */
+	-webkit-animation-name: arrow_top_bounce;
+	/* Regular for animation on other devices */
+	animation-name: arrow_top_bounce;
+	
+	animation-duration: 3s;
+	animation-delay: 0.175s;
+	animation-iteration-count: infinite;
+	animation-fill-mode: forwards;
+}
+
+#pixel_arrow_bottom {
+	z-index: 2;
+	position: fixed;
+	top: 91.5%;
+	left: 49%;
+	width: 6em;
+	height: 2em;
+	transform: translate(-50%, -50%);
+	/* Webkit for iOS devices animation */
+	-webkit-animation-name: arrow_bottom_bounce;
+	animation-name: arrow_bottom_bounce;
+	/* Regular for animation on other devices */
+	animation-duration: 3s;
+	animation-iteration-count: infinite;
+	animation-fill-mode: forwards;
+}
+
+.button_projects {
+	z-index: 2;
+	position: fixed;
+	opacity: 0;
+	transition: opacity 1.5s ease-in-out;
+	top: 12%;
+	left: 25%;
+	width: 20em;
+	height: 1.25em;
+	padding: 0em 0.25em;
+	text-align: left;
+	font-family:'ChakraPetch', Arial, Helvetica, sans-serif;
+	display: inline-block;
+	border: none;
+	background-color: transparent;
+	color: greenyellow;
+	font-size: 1em;
+	margin: 2px 2px;
+	transition-duration: 0.2s;
+	cursor: pointer;
+}
+
+.button_projects:hover {
+	background-color: greenyellow;
+	color: black;
+}
+
+#button_is1200 {
+}
+
+
+/* OLD CODE
+.button_layer { 
+	z-index: 2;
+}
+
+#button_text { 
+	font-style:normal;
+	font-variant:normal;
+	font-weight:500;
+	font-stretch:normal;
+	font-size:48px;
+	font-family:'Chakra Petch', monospace;
+	fill:none;
+	fill-opacity:1;
+	stroke:greenyellow;
+	stroke-opacity:1;
+}
+
+#button_is1200 {
+	top: 72.5%;
+	left: 32%;
+	position: fixed;
+}
+
+#button_is1200:hover #button_text { 
+	fill: greenyellow;
+}
+
+#button_is1300 {
+	top: 72.1%;
+	right: 31.65%;
+	position: fixed;
+}
+
+#button_is1300:hover #button_text { 
+	fill: greenyellow;
+}
+
+
+.button svg {
+	z-index: 3;
+	width: 20px;
+	height: 20px;
+	vertical-align: middle;
+	fill: orange;
+  }
+
+.myButton {
+	z-index: 3;
+	font-family: 'Arial', sans-serif;
+	background-color: #4CAF50;
+	border: none;
+	color: white;
+	padding: 15px 32px;
+	text-align: center;
+	text-decoration: none;
+	display: inline-block;
+	font-size: 16px;
+	margin: 4px 2px;
+	cursor: pointer;
+}
+*/

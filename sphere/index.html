@@ -1,0 +1,105 @@
+<DOCTYPE html>
+
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<script src="./three/Three.min.js"></script>
+	<script src="./gsap/gsap.min.js"></script>
+	<title>01001100 01001101</title>
+	<link rel="stylesheet" type="text/css" href="style.css">
+</head>
+
+<body>
+	<!-- Code for the animated scroll down arrow indicator -->
+	<div id="pixel_arrow_top">
+		<div class="pixelized_arrow">
+		</div>
+	</div>
+	<div id="pixel_arrow_bottom">
+		<div class="pixelized_arrow">
+		</div>
+	</div>
+	<div id="page_main" class="page">
+		<!-- sphere.js creates the floating sphere -->
+		<div class="sphere_layer">
+			<script src="sphere.js"></script>
+		</div>
+	</div>
+	<div id="page_projects" class="page">
+		<button class="button_projects">WORK IN PROGRESS</button>
+	</div>
+	<script>
+		// Define variables globally
+		var pixelArrowBottom = document.getElementById('pixel_arrow_bottom');
+		var pixelArrowTop = document.getElementById('pixel_arrow_top');
+		var buttonProjects = document.querySelector('.button_projects');
+
+		window.addEventListener('scroll', function () {
+
+			// Stop the animation when scroll is starting
+			pixelArrowBottom.style.animationPlayState = 'paused';
+			pixelArrowTop.style.animationPlayState = 'paused';
+
+			// Get the current top value
+			var currentTop = parseFloat(window.getComputedStyle(pixelArrowBottom).top);
+
+			// Convert percentage to percentage
+			var viewPortHeight = window.innerHeight;
+			currentTop = (currentTop / viewPortHeight) * 100;
+
+			// Find scroll position and adjust the top value accordingly
+			var scrollPosition = window.scrollY;
+			var top = currentTop - (scrollPosition / 10000 * (currentTop - 15));
+			top = Math.max(top, 15); // To ensure that top does not go below 15%
+
+			pixelArrowBottom.style.animationName = 'none';
+			pixelArrowBottom.offsetHeight;
+			pixelArrowBottom.style.top = top + '%';
+
+			pixelArrowTop.style.animationName = 'none';
+			pixelArrowTop.offsetHeight;
+			pixelArrowTop.style.top = (top - 2.5) + '%';
+
+			// Check if user has scrolled to the bottom
+			if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight) {
+				// User has scrolled to the bottom, set top to 15%
+				pixelArrowBottom.style.top = '15%';
+				pixelArrowTop.style.top = '12.5%';
+				pixelArrowBottom.style.animationIterationCount = '1';
+				pixelArrowTop.style.animationIterationCount = '1';
+				pixelArrowTop.style.animationDelay = '0s';
+				pixelArrowBottom.style.animationDuration = '1.5s';
+				pixelArrowTop.style.animationDuration = '1.5s';
+				pixelArrowBottom.style.animationName = 'arrow_bottom_rotate';
+				pixelArrowTop.style.animationName = 'arrow_top_rotate';
+				pixelArrowBottom.style.animationPlayState = 'running';
+				pixelArrowTop.style.animationPlayState = 'running';
+
+				setTimeout(function () {
+					// Show projects button
+					pixelArrowBottom.style.top = '12.5%';
+					pixelArrowTop.style.top = '12.5%';
+					pixelArrowBottom.style.left = '11.5%';
+					pixelArrowTop.style.left = '10%';
+				
+					pixelArrowBottom.style.animationPlayState = 'none';
+					pixelArrowTop.style.animationPlayState = 'none';
+					buttonProjects.style.opacity = '1';
+				}, 1000)
+			}
+		});
+
+		// Trigger when button is pressed
+		buttonProjects.addEventListener('click', function () {
+			pixelArrowBottom.style.animationName = 'arrow_bottom_rotate_click';
+			pixelArrowTop.style.animationName = 'arrow_top_rotate_click';
+			pixelArrowBottom.style.animationPlayState = 'running';
+			pixelArrowTop.style.animationPlayState = 'running';
+		});
+	</script>
+</body>
+
+</html>
